@@ -1,0 +1,37 @@
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+venv/
+venv3/
+
+# Django-specific files
+*.log
+*.pot
+*.pyc
+*.db
+*.sqlite3
+*.db-journal
+
+# Django migrations
+*/migrations/*
+
+# Environment variables
+.env
+
+# Jupyter Notebook files
+.ipynb_checkpoints
+
+# VSCode settings
+.vscode/
+
+# PyCharm settings
+.idea/
+
+# MacOS Finder files
+.DS_Store
+
+# Windows Thumbnails
+Thumbs.db
