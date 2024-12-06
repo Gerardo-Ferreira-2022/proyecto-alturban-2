@@ -42,13 +42,36 @@
 
                 <div class="mb-3">
                     <label for="id_latitud">Latitud</label>
-                    <input type="number" name="latitud" step="0.000001" required id="id_latitud" class="form-control">
+                    <span id="id_latitud" class="form-control">Cargando...</span> <!-- Mostrará la latitud -->
                 </div>
-
+                
                 <div class="mb-3">
                     <label for="id_longitud">Longitud</label>
-                    <input type="number" name="longitud" step="0.000001" required id="id_longitud" class="form-control">
+                    <span id="id_longitud" class="form-control">Cargando...</span> <!-- Mostrará la longitud -->
                 </div>
+                
+                <script>
+                    // Verificar si el navegador soporta geolocalización
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function(position) {
+                            // Obtener la latitud y longitud
+                            var latitud = position.coords.latitude;
+                            var longitud = position.coords.longitude;
+                            
+                            // Asignar los valores de latitud y longitud a las etiquetas
+                            document.getElementById('id_latitud').innerText = latitud;
+                            document.getElementById('id_longitud').innerText = longitud;
+                        }, function(error) {
+                            console.log("Error al obtener la ubicación: " + error.message);
+                            // Puedes agregar una alerta para informar al usuario en caso de error
+                            alert("No se pudo obtener la ubicación. Por favor, habilita la geolocalización.");
+                        });
+                    } else {
+                        console.log("Geolocalización no es compatible con este navegador.");
+                        // Si no se soporta geolocalización, puedes agregar un valor predeterminado o mostrar un mensaje
+                        alert("Tu navegador no soporta geolocalización.");
+                    }
+                </script>
 
 
                 <button class="btn btn-primary">
@@ -65,6 +88,8 @@
     </div>
 
 </main>
+
+
 
 
 {% endblock %}
