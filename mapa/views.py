@@ -20,28 +20,36 @@ def home(request):
 
 @login_required
 def create_task(request):
-    if request.method == 'GET':
-        return render(request, 'create_task.html', {
-            'form': TaskForm
-        })
-    else:
-        try:
-            form = TaskForm(request.POST, request.FILES)
-            print("Datos del formulario:", form.data)
-            if form.is_valid():
-                print("Formulario válido")
-            else:
-                print("Errores del formulario:", form.errors)
-            new_task = form.save(commit = False)
-            new_task.user = request.user
-            new_task.save()
-            return redirect('tasks')
-        except ValueError:
-            return render(request, 'tasks.html', {
-                'form':TaskForm(),
-                'error': 'Ingresa información Valida'
-            })
+    if request.method == 'POST':
+        form = TaskForm(request.POST, request.FILES)
+        print("Datos del formulario:", form.data)
 
+        if form.is_valid():
+            # Acceder a cleaned_data solo después de que el formulario sea válido
+            latitud = form.cleaned_data.get('latitud')
+            longitud = form.cleaned_data.get('longitud')
+
+            # Redondeamos latitud y longitud a 6 decimales
+            if latitud:
+                latitud = round(latitud, 6)
+            if longitud:
+                longitud = round(longitud, 6)
+
+            # Asignar latitud y longitud redondeados a los datos del formulario
+            task = form.save(commit=False)
+            task.latitud = latitud
+            task.longitud = longitud
+            task.user = request.user
+            task.save()
+
+            return redirect('tasks')
+        else:
+            print("Errores del formulario:", form.errors)
+            return render(request, 'create_task.html', {'form': form, 'error': 'Por favor, corrige los errores del formulario.'})
+
+    else:
+        form = TaskForm()
+        return render(request, 'create_task.html', {'form': form})
 
 
 def signup(request):
