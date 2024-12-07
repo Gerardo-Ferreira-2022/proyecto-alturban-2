@@ -130,7 +130,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Ruta para collectstatic
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Ruta a tus archivos estáticos en desarrollo
+    os.path.join(BASE_DIR, 'static'),  # Ruta local
 ]
 
 if not DEBUG:
