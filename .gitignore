@@ -13,8 +13,6 @@ ENV/
 *.sqlite3
 
 # Directorios de archivos estáticos y coleccionados por Django
-/static/
-media/
 
 # Archivos de configuración de sistemas operativos
 .DS_Store         # MacOS
