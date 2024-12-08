@@ -7,6 +7,7 @@
     <title>Aplicacion Django</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- CSS -->
     <style>
@@ -32,32 +33,36 @@
                     <a class="nav-link" href="/"><i class="bi bi-house-add me-2"></i>Home |</a>
                 </li>
                 
-                
+                {% if user.is_authenticated and user.is_superuser %}
                 <li class="nav-item">
                     <a class="nav-link" href="/admin"><i class="bi bi-person-fill-add me-2"></i>Admin |</a>
                 </li>
-              
+                {% endif %}
+
+                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="/tasks"><i class="bi bi-table me-2"></i>Tabla Registro |</a>
                 </li>
+                {% endif %}
                 
-                
-                
+                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="/create_task"><i class="bi bi-pencil-square me-2"></i>Reportar Peligro |</a>
                 </li>
-             
+                {% endif %}
 
-          
+                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="/mapa"><i class="bi bi-globe-americas me-2"></i>Mapa |</a>
                 </li>
-                
+                {% endif %}
+
+                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="btn btn-danger" href="/logout"><i class="bi bi-door-closed me-2"></i>Cerrar Sesión</a>
                 </li>
     
-                
+                {% else %}
     
                 <li class="nav-item">
                     <a class="nav-link" href="/signup"><i class="bi bi-person-fill-check me-2"></i>Registrase</a>
@@ -67,7 +72,7 @@
 
                     <a class="btn btn-warning" href="/signin"><i class="bi bi-door-open me-2"></i>Iniciar Sesión</a>
                 </li>
-    
+                {% endif %}
                 
             </ul>
           </div>
